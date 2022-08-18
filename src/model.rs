@@ -1,6 +1,11 @@
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct QueryResult<T> {
+    pub results: Vec<T>,
+}
+
 #[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub struct Card<'a> {
     pub id: Uuid,
