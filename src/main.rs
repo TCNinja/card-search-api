@@ -2,11 +2,13 @@ mod model;
 
 use actix_web::{get, App, HttpResponse, HttpServer};
 use model::{Card, Game};
+use uuid::Uuid;
 
 /// Gets the cards with the supplied id.
 #[get("/search/cards")]
 async fn query_cards() -> HttpResponse {
     HttpResponse::Ok().json(Card {
+        id: Uuid::new_v4(),
         game: Game::MagicTheGathering,
         name: "Some Card",
         description: "Some description",
