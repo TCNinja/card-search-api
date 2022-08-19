@@ -2,17 +2,17 @@ mod model;
 
 use actix_web::{get, App, HttpResponse, HttpServer};
 use model::{Card, Game, QueryResult};
-use uuid::Uuid;
+use uuid::uuid;
 
 /// Gets the cards with the supplied id.
 #[get("/search/cards")]
 async fn query_cards() -> HttpResponse {
     HttpResponse::Ok().json(QueryResult {
         results: vec![Card {
-            id: Uuid::new_v4(),
+            id: uuid!("d4d8c9f9-31ed-53ed-ab67-eba86e2198fe"),
             game: Game::MagicTheGathering,
-            name: "Some Card",
-            description: "Some description",
+            name: "Black Lotus",
+            description: "{T}, Sacrifice Black Lotus: Add three mana of any one color.",
         }],
     })
 }
