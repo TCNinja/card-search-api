@@ -1,6 +1,7 @@
 mod model;
 
-use actix_web::{get, App, HttpResponse, HttpServer};
+use lambda_web::actix_web::{self, get, App, HttpResponse, HttpServer};
+use lambda_web::{is_running_on_lambda, run_actix_on_lambda, LambdaError};
 use model::{Card, Game, QueryResult};
 use uuid::uuid;
 
@@ -18,9 +19,17 @@ async fn query_cards() -> HttpResponse {
 }
 
 #[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(move || App::new().service(query_cards))
-        .bind(("0.0.0.0", 8080))?
-        .run()
-        .await
+async fn main() -> Result<(), LambdaError> {
+    let factory = move || App::new().service(query_cards);
+
+    if is_running_on_lambda() {
+        run_actix_on_lambda(factory).await?;
+    } else {
+        HttpServer::new(factory)
+            .bind(("0.0.0.0", 8080))?
+            .run()
+            .await?;
+    }
+
+    Ok(())
 }
