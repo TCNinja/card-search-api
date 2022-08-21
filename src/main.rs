@@ -5,7 +5,7 @@ use model::{Card, Game, QueryResult};
 use uuid::uuid;
 
 /// Gets the cards with the supplied id.
-#[get("/search/cards")]
+#[get("/cards/search")]
 async fn query_cards() -> HttpResponse {
     HttpResponse::Ok().json(QueryResult {
         results: vec![Card {
