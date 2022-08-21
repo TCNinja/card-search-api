@@ -12,3 +12,9 @@ actix-web = "4.1.0"
 lambda-web = { version = "0.2.0", features = ["actix4"] }
 serde = { version = "1.0.143", features = ["derive"] }
 uuid = { version = "1.1.2", features = ["serde", "v4"] }
+
+[target.x86_64-unknown-linux-gnu]
+image = "lambci/lambda:build-provided"
+
+[target.x86_64-unknown-linux-musl]
+image = "lambci/lambda:build-provided"
